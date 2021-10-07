@@ -1,52 +1,68 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AudioSyncer : MonoBehaviour
-{
+/// <summary>
+/// Parent class responsible for extracting beats from..
+/// ..spectrum value given by AudioSpectrum.cs
+/// </summary>
+public class AudioSyncer : MonoBehaviour {
 
-    public float bias;
-    public float timeStep;
-    public float timeToBeat;
-    public float restSmoothTime;
+	/// <summary>
+	/// Inherit this to cause some behavior on each beat
+	/// </summary>
+	public virtual void OnBeat()
+	{
+		Debug.Log("beat");
+		m_timer = 0;
+		m_isBeat = true;
+	}
 
-    private float previousAudioValue;
-    private float audioValue;
-    private float timer;
+	/// <summary>
+	/// Inherit this to do whatever you want in Unity's update function
+	/// Typically, this is used to arrive at some rest state..
+	/// ..defined by the child class
+	/// </summary>
+	public virtual void OnUpdate()
+	{ 
+		// update audio value
+		m_previousAudioValue = m_audioValue;
+		m_audioValue = AudioSpectrum.spectrumValue;
 
-    protected bool isBeat;
+		// if audio value went below the bias during this frame
+		if (m_previousAudioValue > bias &&
+			m_audioValue <= bias)
+		{
+			// if minimum beat interval is reached
+			if (m_timer > timeStep)
+				OnBeat();
+		}
 
-    // Start is called before the first frame update
-    void Start()
-    {
+		// if audio value went above the bias during this frame
+		if (m_previousAudioValue <= bias &&
+			m_audioValue > bias)
+		{
+			// if minimum beat interval is reached
+			if (m_timer > timeStep)
+				OnBeat();
+		}
 
-    }
+		m_timer += Time.deltaTime;
+	}
 
-    // Update is called once per frame
-    void Update()
-    {
-        // update audio value
-        previousAudioValue = audioValue;
-        audioValue = AudioSpectrum.spectrumValue;
+	private void Update()
+	{
+		OnUpdate();
+	}
 
-        // if audio value went below the bias during this frame
-        if (previousAudioValue > bias && audioValue <= bias) {
-            if (timer > timeStep) { OnBeat(); } 
-        }
+	public float bias;
+	public float timeStep;
+	public float timeToBeat;
+	public float restSmoothTime;
 
-        // if audio value went above the bias during this frame
-        if (previousAudioValue <= bias && audioValue > bias)
-        { 
-            if (timer > timeStep) { OnBeat(); } 
-        }
+	private float m_previousAudioValue;
+	private float m_audioValue;
+	private float m_timer;
 
-        timer += Time.deltaTime;
-    }
-
-    public virtual void OnBeat()
-    {
-        timer = 0;
-        isBeat = true;
-    }
-
+	protected bool m_isBeat;
 }
