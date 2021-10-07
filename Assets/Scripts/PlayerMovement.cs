@@ -96,6 +96,7 @@ public class PlayerMovement : MonoBehaviour
                 AudioDash.Play();
                 transform.position += transform.up * (dashDistance * 100) * Time.deltaTime;
                 nextDash = Time.time + dashCooldown;
+
             }
         }
     }
