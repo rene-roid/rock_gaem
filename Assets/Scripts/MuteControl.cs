@@ -7,26 +7,25 @@ public class MuteControl : MonoBehaviour, IPointerClickHandler
 {
 
     public Sprite MuteIcon, UnmuteIcon;
-    private AudioSource muteDetect;
+    public static bool musicIsMuted = false;
 
     void Awake()
     {
         this.transform.GetComponent<UnityEngine.UI.Image>().sprite = UnmuteIcon;
 
-        muteDetect = GetComponent<AudioSource>();
+    }
+
+    void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.M)) { musicIsMuted = !musicIsMuted; }
+
+        if (musicIsMuted) { this.transform.GetComponent<UnityEngine.UI.Image>().sprite = MuteIcon; }
+        else this.transform.GetComponent<UnityEngine.UI.Image>().sprite = UnmuteIcon;
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        muteDetect.mute = !muteDetect.mute;
-
-        if (this.GetComponent<UnityEngine.UI.Image>().sprite == UnmuteIcon)
-        {
-            this.transform.GetComponent<UnityEngine.UI.Image>().sprite = MuteIcon;
-        } else
-        {
-            this.transform.GetComponent<UnityEngine.UI.Image>().sprite = UnmuteIcon;
-        }
+        if (this.GetComponent<UnityEngine.UI.Image>().sprite == UnmuteIcon) { musicIsMuted = true; } else musicIsMuted = false;
     }
 
 }

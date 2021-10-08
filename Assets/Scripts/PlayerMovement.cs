@@ -35,12 +35,13 @@ public class PlayerMovement : MonoBehaviour
         // Quaternion with anglesnot verctor 3
         transform.rotation = Quaternion.Euler(0f, 0f, playerRot);
 
+        dash();
         // Move the player
         transform.position += transform.up * Input.GetAxis("Vertical") * ySpeed * Time.deltaTime;
         CreateParticles();
 
         limitsControl();
-        dash();
+        
     }
     void limitsControl()
     {
