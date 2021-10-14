@@ -13,41 +13,60 @@ public class PlayerMovement : MonoBehaviour
     public float xMapLimit, yMapLimit;
     private float xPos, yPos;
 
+    // Dash Variables
     public float dashDistance, dashCooldown;
-    private float nextDash, bruhDashParticle, bruhNextDash;
+    public static float dashCD;
+    private float nextDash;
     public ParticleSystem playerFart;
     public ParticleSystem dashParticle;
     private AudioSource AudioDash;
+    private bool dashActive;
 
     // Start is called before the first frame update
     void Start()
     {
+        // Dash Cooldown
+        dashCD = dashCooldown;
+
+        // Setting player rotation
         playerRot = transform.eulerAngles.z;
+
+        // Dash audio
         AudioDash = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        // Calling slowmotion velocity
+        slowmoVel();
+
         // Rotate the player
         playerRot -= rotSpeed * Input.GetAxis("Horizontal") * Time.deltaTime;
 
         // Quaternion with anglesnot verctor 3
         transform.rotation = Quaternion.Euler(0f, 0f, playerRot);
 
+        // Calling dash
         dash();
-        // Move the player
-        transform.position += transform.up * Input.GetAxis("Vertical") * ySpeed * Time.deltaTime;
+
         CreateParticles();
 
+        // Move the player
+        transform.position += transform.up * Input.GetAxis("Vertical") * ySpeed * Time.deltaTime;
+
+        // Limits control mode
         limitsControl();
-        
+
     }
     void limitsControl()
     {
+
+        // Getting player pos
         xPos = transform.position.x;
         yPos = transform.position.y;
 
+        // If player reaches map limit tp on the oposite side
         if (xPos > xMapLimit) xPos = -xMapLimit;
         else if (xPos < -xMapLimit) xPos = xMapLimit;
         if (yPos > yMapLimit) yPos = -yMapLimit;
@@ -83,22 +102,55 @@ public class PlayerMovement : MonoBehaviour
 
     void CreateParticles()
     {
+        // Calling particle system (Ship trail)
         playerFart.Play();
- 
     }
 
     void dash()
     {
-        if (Input.GetKeyDown(KeyCode.Space) == true) {
-            if (Time.time > nextDash)
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            // Viewing dash is in cooldown
+            if (dashActive == false && Time.time > nextDash)
             {
+                // Playing particle system
                 dashParticle.Play();
-                new WaitForEndOfFrame();
-                AudioDash.Play();
-                transform.position += transform.up * (dashDistance * 100) * Time.deltaTime;
-                nextDash = Time.time + dashCooldown;
+                dashActive = true;
+
+                // Adding small delay for particle system and calling setDash()
+                Invoke("setDash", 0.05f);
+
+                // Setting cooldown
+                nextDash = Time.time + dashCD;
 
             }
+        }
+    }
+
+    void setDash()
+    {
+        // Teleporting the player
+        transform.position += transform.up * (dashDistance * 100) * Time.deltaTime;
+
+        // Playing dash sfx
+        AudioDash.Play();
+
+        // Naa dash is no longer active ;(
+        dashActive = false;
+    }
+
+    void slowmoVel()
+    {
+        // If is in slowmo make the ship faster and rotate faster
+        if (SlowMotion.isSlowmo)
+        {
+            ySpeed = 14;
+            rotSpeed = 720;
+
+        } else
+        {
+            ySpeed = 7;
+            rotSpeed = 240;
         }
     }
 }
