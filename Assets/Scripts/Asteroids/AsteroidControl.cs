@@ -7,6 +7,13 @@ public class AsteroidControl : MonoBehaviour
     // xSpeed & ySpeed Variables
     public float xSpeed = 1.0f;
     public float ySpeed = 1.0f;
+    public float speed = 1.0f;
+    public bool randomSpeed;
+
+    // Calling Asteroid folllow Variables
+    public GameObject player; // Getting player pos
+    private Vector2 movement;
+    private Transform target;
 
     // Creating xPos & yPos Private Variables
     private float xPos, yPos;
@@ -15,34 +22,58 @@ public class AsteroidControl : MonoBehaviour
     public float xMapLimit, yMapLimit;
 
     // Bounce Mode or Teleport Mode variables
-    public bool asteroidMode;
+    public int asteroidMode;
 
     // Start is called before the first frame update
     void Start()
     {
+        if (randomSpeed)
+        {
+            xSpeed = Random.Range(-xSpeed, xSpeed);
+            ySpeed = Random.Range(-ySpeed, ySpeed);
+            speed = Random.Range(0, speed);
+        }
         // Setting initial possition of xPos & yPos
         xPos = transform.position.x;
         yPos = transform.position.y;
+
+        player = GameObject.FindWithTag("Player");
+        if (player)
+        {
+            target = player.transform;
+        }
+
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        // Moving the asteroid
-        xPos += xSpeed * Time.deltaTime; // xPos = xPos + xSpeed * Time.deltaTime;
-        yPos += ySpeed * Time.deltaTime; // yPos = yPos + ySpeed * Time.deltaTime
 
         // Toggle asteroid mode
-        if (asteroidMode == true )
+        if (asteroidMode == 1 )
         {
+            // Moving the asteroid
+            xPos += xSpeed * Time.deltaTime; // xPos = xPos + xSpeed * Time.deltaTime;
+            yPos += ySpeed * Time.deltaTime; // yPos = yPos + ySpeed * Time.deltaTime
             limitsControl();
+
+            // Move the asteroid to a position
+            transform.position = new Vector3(xPos, yPos, 0.0f);
+        } else if (asteroidMode == 2)
+        {
+            // Moving the asteroid
+            xPos += xSpeed * Time.deltaTime; // xPos = xPos + xSpeed * Time.deltaTime;
+            yPos += ySpeed * Time.deltaTime; // yPos = yPos + ySpeed * Time.deltaTime
+            asteroidBounce();
+
+            // Move the asteroid to a position
+            transform.position = new Vector3(xPos, yPos, 0.0f);
         } else
         {
-            asteroidBounce();
+            asteroidFollow();
         }
 
-        // Move the asteroid to a position
-        transform.position = new Vector3(xPos, yPos, 0.0f);
 
     }
 
@@ -105,5 +136,78 @@ public class AsteroidControl : MonoBehaviour
         {
             yPos = yMapLimit;
         }
+    }
+
+    void asteroidFollow()
+    {
+        // Getting distance between asteroid and player
+        Vector2 direction = target.position - transform.position;
+        direction.Normalize();
+        movement = direction;
+        // Moving asteroid
+        transform.position = (Vector2)transform.position + (movement * speed * Time.deltaTime);
+    }
+
+    public GameObject explosionEffect, asteroidMid, asteroidSmol;
+    public int asteroidLife;
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Bullet")
+        {
+            asteroidLife --;
+        }
+
+        if (asteroidLife <= 0)
+        {
+            GameObject explosionEffectCopy = Instantiate(explosionEffect, transform.position, transform.rotation);
+            Destroy(gameObject);
+            Destroy(explosionEffectCopy, 2);
+
+            if (gameObject.name == "AsteroidTeleport" || gameObject.name == "AsteroidTeleport(Clone)" || gameObject.name == "AsteroidBounce" || gameObject.name == "AsteroidBounce(Clone)" || gameObject.name == "AsteroidFollow" || gameObject.name == "AsteroidFollow(Clone)")
+            {
+                BigExplosion();
+            }
+            else if (gameObject.name == "MediumAsteroidTeleport" || gameObject.name == "MediumAsteroidTeleport(Clone)" || gameObject.name == "MediumAsteroidBounce" || gameObject.name == "MediumAsteroidBounce(Clone)" || gameObject.name == "MediumAsteroidFollow" || gameObject.name == "MediumAsteroidFollow(Clone)")
+            {
+                MidExplosion();
+            }
+        }
+
+        if (collision.tag == "Player" && Time.time > PlayerHP.nextShieldAsteroid)
+        {
+            GameObject explosionEffectCopy = Instantiate(explosionEffect, transform.position, transform.rotation);
+            Destroy(gameObject);
+            Destroy(explosionEffectCopy, 2);
+            if (gameObject.name == "AsteroidTeleport" || gameObject.name == "AsteroidTeleport(Clone)" || gameObject.name == "AsteroidBounce" || gameObject.name == "AsteroidBounce(Clone)" || gameObject.name == "AsteroidFollow" || gameObject.name == "AsteroidFollow(Clone)")
+            {
+
+                BigExplosion();
+            }
+            else if (gameObject.name == "MediumAsteroidTeleport" || gameObject.name == "MediumAsteroidTeleport(Clone)" || gameObject.name == "MediumAsteroidBounce" || gameObject.name == "MediumAsteroidBounce(Clone)" || gameObject.name == "MediumAsteroidFollow" || gameObject.name == "MediumAsteroidFollow(Clone)")
+            {
+
+                MidExplosion();
+            }
+            else if (gameObject.name == "SmolAsteroidTeleport" || gameObject.name == "SmolAsteroidTeleport(Clone)" || gameObject.name == "SmolAsteroidBounce" || gameObject.name == "SmolAsteroidBounce(Clone)" || gameObject.name == "SmolAsteroidFollow" || gameObject.name == "SmolAsteroidFollow(Clone)")
+            {
+
+            }
+
+            PlayerHP.nextShieldAsteroid = Time.time + PlayerHP.shieldCDAsteroid;
+        }
+    }
+
+    private void BigExplosion()
+    {
+        GameObject asteroidMidCopy = Instantiate(asteroidMid, transform.position, transform.rotation);
+        GameObject asteroidMidCopy1 = Instantiate(asteroidMid, transform.position, transform.rotation);
+    }
+    private void MidExplosion()
+    {
+        GameObject asteroidSmolCopy = Instantiate(asteroidSmol, transform.position, transform.rotation);
+        GameObject asteroidSmolCopy1 = Instantiate(asteroidSmol, transform.position, transform.rotation);
+        GameObject asteroidSmolCopy2 = Instantiate(asteroidSmol, transform.position, transform.rotation);
+        GameObject asteroidSmolCopy3 = Instantiate(asteroidSmol, transform.position, transform.rotation);
     }
 }

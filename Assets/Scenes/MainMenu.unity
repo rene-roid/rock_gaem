@@ -645,6 +645,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -5509280965669916788, guid: 56d5b9dc8d005e64f877cca4cbd77419, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7410547185380612161, guid: 56d5b9dc8d005e64f877cca4cbd77419, type: 3}
       propertyPath: player
       value: 
@@ -2198,6 +2202,18 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1703336114}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &629846044
 MonoBehaviour:
@@ -4077,8 +4093,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 179}
-  m_SizeDelta: {x: 268.05957, y: -30.31491}
+  m_AnchoredPosition: {x: -0.0000038146973, y: 181}
+  m_SizeDelta: {x: 351.92, y: -14.44}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &1589412304
 SpriteRenderer:
@@ -4690,7 +4706,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1446712907421332831, guid: 10b2a59cc63f55f4e898e89dd4e4809a, type: 3}
       propertyPath: ySpeed
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 10b2a59cc63f55f4e898e89dd4e4809a, type: 3}
@@ -4705,6 +4721,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AsteroidBounce (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1446712907421332828, guid: 10b2a59cc63f55f4e898e89dd4e4809a, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e792c1ac44e20f44da333e9461117f38, type: 3}
     - target: {fileID: 1446712907421332828, guid: 10b2a59cc63f55f4e898e89dd4e4809a, type: 3}
       propertyPath: m_Color.a
       value: 0
@@ -4759,11 +4779,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1446712907421332831, guid: 10b2a59cc63f55f4e898e89dd4e4809a, type: 3}
       propertyPath: xSpeed
-      value: 3
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1446712907421332831, guid: 10b2a59cc63f55f4e898e89dd4e4809a, type: 3}
       propertyPath: ySpeed
-      value: 5
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 10b2a59cc63f55f4e898e89dd4e4809a, type: 3}

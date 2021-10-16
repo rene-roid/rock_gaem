@@ -22,7 +22,7 @@ public class SlowMotion : MonoBehaviour
     void Update()
     {
         // Calling slowmo when it is on cooldown and when the pause menu is closed
-        if (Input.GetKey(KeyCode.E) && Time.time > nextSlowmo && PauseMenu.gameIsPaused == false)
+        if ((Input.GetKey(KeyCode.E) || Input.GetKey("joystick button 7")) && Time.time > nextSlowmo && PauseMenu.gameIsPaused == false)
         {
             // Changing timescale and adding cooldown
             isSlowmo = true;

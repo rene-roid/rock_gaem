@@ -108,7 +108,7 @@ public class PlayerMovement : MonoBehaviour
 
     void dash()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q) || Input.GetKey("joystick button 6"))
         {
             // Viewing dash is in cooldown
             if (dashActive == false && Time.time > nextDash)

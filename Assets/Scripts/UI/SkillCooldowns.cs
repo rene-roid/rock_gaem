@@ -11,7 +11,7 @@ public class SkillCooldowns : MonoBehaviour
     public Image dashOverlay;
     private float dashCooldown;
     bool isDashCD = false;
-    public KeyCode dashKey = KeyCode.Space;
+    private KeyCode dashKey = KeyCode.Q;
 
     // Slowmo vars
     public Image slowmoOverlay;
@@ -51,7 +51,7 @@ public class SkillCooldowns : MonoBehaviour
     void dashCDOverlay()
     {
         // If dash is clicked and there is no cd do...
-        if (Input.GetKey(dashKey) && isDashCD == false)
+        if ((Input.GetKey(dashKey) || Input.GetKey("joystick button 6")) && isDashCD == false)
         {
             // Activating timer & overlay
             dashTimeGameobject.SetActive(true);
@@ -80,7 +80,7 @@ public class SkillCooldowns : MonoBehaviour
     void slowmoCDoverlay()
     {
         // If slowmo is clicked and there is no cd do...
-        if (Input.GetKey(slowmoKey) && isSlowmoCD == false && PauseMenu.gameIsPaused == false)
+        if ((Input.GetKey(slowmoKey) || Input.GetKey("joystick button 7")) && isSlowmoCD == false && PauseMenu.gameIsPaused == false)
         {
             // Activating timer & overlay
             slowmoTime = SlowMotion.slowmotionCD;

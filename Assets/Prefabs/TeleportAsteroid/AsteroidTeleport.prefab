@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 1869110802759026334}
   - component: {fileID: 1869110802759026333}
   - component: {fileID: 1869110802759026328}
+  - component: {fileID: -8220451832111497221}
+  - component: {fileID: -1352489645800109611}
   m_Layer: 0
   m_Name: AsteroidTeleport
   m_TagString: Asteroid
@@ -96,13 +98,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 158cb8f34347c7244aa0688530ce5870, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xSpeed: 4
+  xSpeed: 3
   ySpeed: 3
+  speed: 1
+  randomSpeed: 1
+  player: {fileID: 0}
   xMapLimit: 11
   yMapLimit: 6
   asteroidMode: 1
   xAsteroidMapBouce: 7.97
   yAsteroidMapBounce: 4.1
+  explosionEffect: {fileID: 5847765171031796714, guid: 238646762af2abb438f997adb10dfade, type: 3}
+  asteroidMid: {fileID: 1869110802759026332, guid: 9e25833dc24b3a24fab717165223eadd, type: 3}
+  asteroidSmol: {fileID: 1869110802759026332, guid: e34cb74f4ccae0c4a9f58914cb441bfb, type: 3}
+  asteroidLife: 5
 --- !u!114 &1869110802759026328
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -121,3 +130,40 @@ MonoBehaviour:
   alphaThreshold: 1
   drawOutside: 0
   enableInstancing: 0
+--- !u!50 &-8220451832111497221
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1869110802759026332}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!58 &-1352489645800109611
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1869110802759026332}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 1.024

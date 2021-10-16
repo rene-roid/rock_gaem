@@ -22,10 +22,12 @@ public class AsteroidFollow : MonoBehaviour
         Vector2 direction = player.position - transform.position;
         direction.Normalize();
         movement = direction;
+        // Moving asteroid
+        transform.position = (Vector2)transform.position + (movement * speed * Time.deltaTime);
     }
     private void FixedUpdate()
     {
-        // Moving asteroid
-        transform.position = (Vector2)transform.position + (movement * speed * Time.deltaTime);
+        
+        // transform.position = (Vector2)transform.position + (movement * speed * Time.deltaTime);
     }
 }

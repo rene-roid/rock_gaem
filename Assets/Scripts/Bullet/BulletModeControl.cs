@@ -16,12 +16,19 @@ public class BulletModeControl : MonoBehaviour
             print("modo 1 x");
             shots[0].SetActive(true);
             shots[1].SetActive(false);
+            shots[2].SetActive(false);
 
         } else if (Input.GetKeyDown(KeyCode.X))
         {
             print("modo 2 x");
             shots[0].SetActive(false);
             shots[1].SetActive(true);
+            shots[2].SetActive(false);
+        } else if (Input.GetKeyDown(KeyCode.C))
+        {
+            shots[0].SetActive(false);
+            shots[1].SetActive(false);
+            shots[2].SetActive(true);
         }
     }
 }

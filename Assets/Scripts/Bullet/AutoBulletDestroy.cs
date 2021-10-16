@@ -19,4 +19,12 @@ public class AutoBulletDestroy : MonoBehaviour
         // Telling when the bullet is destroyed
         Destroy(gameObject, destroyTime);
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Asteroid")
+        {
+            Destroy(gameObject);
+        }
+    }
 }
