@@ -150,16 +150,19 @@ public class AsteroidControl : MonoBehaviour
 
     public GameObject explosionEffect, asteroidMid, asteroidSmol;
     public int asteroidLife;
+    public static bool asteroidDestroyed = false, asteroidHit = false;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Bullet")
         {
             asteroidLife --;
+            asteroidHit = true;
         }
 
         if (asteroidLife <= 0)
         {
+            asteroidDestroyed = true;
             GameObject explosionEffectCopy = Instantiate(explosionEffect, transform.position, transform.rotation);
             Destroy(gameObject);
             Destroy(explosionEffectCopy, 2);
@@ -176,6 +179,7 @@ public class AsteroidControl : MonoBehaviour
 
         if (collision.tag == "Player" && Time.time > PlayerHP.nextShieldAsteroid)
         {
+            asteroidDestroyed = true;
             GameObject explosionEffectCopy = Instantiate(explosionEffect, transform.position, transform.rotation);
             Destroy(gameObject);
             Destroy(explosionEffectCopy, 2);
