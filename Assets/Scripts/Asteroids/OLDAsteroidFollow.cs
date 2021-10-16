@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AsteroidFollow : MonoBehaviour
+public class OLDAsteroidFollow : MonoBehaviour
 {
     // Calling Variables
     public Transform player; // Getting player pos

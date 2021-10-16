@@ -200,14 +200,16 @@ public class AsteroidControl : MonoBehaviour
 
     private void BigExplosion()
     {
-        GameObject asteroidMidCopy = Instantiate(asteroidMid, transform.position, transform.rotation);
-        GameObject asteroidMidCopy1 = Instantiate(asteroidMid, transform.position, transform.rotation);
+        for (int i = 0; i < 2; i++)
+        {
+            GameObject asteroidMidCopy = Instantiate(asteroidMid, transform.position, transform.rotation);
+        }
     }
     private void MidExplosion()
     {
-        GameObject asteroidSmolCopy = Instantiate(asteroidSmol, transform.position, transform.rotation);
-        GameObject asteroidSmolCopy1 = Instantiate(asteroidSmol, transform.position, transform.rotation);
-        GameObject asteroidSmolCopy2 = Instantiate(asteroidSmol, transform.position, transform.rotation);
-        GameObject asteroidSmolCopy3 = Instantiate(asteroidSmol, transform.position, transform.rotation);
+        for (int i = 0; i < 4; i++)
+        {
+            GameObject asteroidSmolCopy = Instantiate(asteroidSmol, transform.position, transform.rotation);
+        }
     }
 }
