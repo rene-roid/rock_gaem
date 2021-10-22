@@ -13,7 +13,7 @@ public class PauseMenu : MonoBehaviour
     void Update()
     {
         // Activating/Deactivating pause menu
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown("joystick button 3"))
         {
             if (gameIsPaused)
             {

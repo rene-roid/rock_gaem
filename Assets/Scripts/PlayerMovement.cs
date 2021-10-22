@@ -25,6 +25,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        playerFart.Play();
         // Dash Cooldown
         dashCD = dashCooldown;
 
@@ -100,10 +101,19 @@ public class PlayerMovement : MonoBehaviour
         */
     }
 
+
+    public GameObject fartParticle;
     void CreateParticles()
     {
-        // Calling particle system (Ship trail)
-        playerFart.Play();
+        if (Input.GetKey(KeyCode.W))
+        {
+            playerFart.Play();
+            fartParticle.SetActive(true);       
+        } else
+        {
+            playerFart.Stop();
+        }
+
     }
 
     void dash()

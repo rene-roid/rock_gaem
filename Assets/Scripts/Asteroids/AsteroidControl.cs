@@ -74,7 +74,6 @@ public class AsteroidControl : MonoBehaviour
             asteroidFollow();
         }
 
-
     }
 
     public float xAsteroidMapBouce, yAsteroidMapBounce;
@@ -160,22 +159,7 @@ public class AsteroidControl : MonoBehaviour
             asteroidHit = true;
         }
 
-        if (asteroidLife <= 0)
-        {
-            asteroidDestroyed = true;
-            GameObject explosionEffectCopy = Instantiate(explosionEffect, transform.position, transform.rotation);
-            Destroy(gameObject);
-            Destroy(explosionEffectCopy, 2);
-
-            if (gameObject.name == "AsteroidTeleport" || gameObject.name == "AsteroidTeleport(Clone)" || gameObject.name == "AsteroidBounce" || gameObject.name == "AsteroidBounce(Clone)" || gameObject.name == "AsteroidFollow" || gameObject.name == "AsteroidFollow(Clone)")
-            {
-                BigExplosion();
-            }
-            else if (gameObject.name == "MediumAsteroidTeleport" || gameObject.name == "MediumAsteroidTeleport(Clone)" || gameObject.name == "MediumAsteroidBounce" || gameObject.name == "MediumAsteroidBounce(Clone)" || gameObject.name == "MediumAsteroidFollow" || gameObject.name == "MediumAsteroidFollow(Clone)")
-            {
-                MidExplosion();
-            }
-        }
+        asteroidDieControl();
 
         if (collision.tag == "Player" && Time.time > PlayerHP.nextShieldAsteroid)
         {
@@ -214,6 +198,26 @@ public class AsteroidControl : MonoBehaviour
         for (int i = 0; i < 4; i++)
         {
             GameObject asteroidSmolCopy = Instantiate(asteroidSmol, transform.position, transform.rotation);
+        }
+    }
+
+    private void asteroidDieControl()
+    {
+        if (asteroidLife <= 0)
+        {
+            asteroidDestroyed = true;
+            GameObject explosionEffectCopy = Instantiate(explosionEffect, transform.position, transform.rotation);
+            Destroy(gameObject);
+            Destroy(explosionEffectCopy, 2);
+
+            if (gameObject.name == "AsteroidTeleport" || gameObject.name == "AsteroidTeleport(Clone)" || gameObject.name == "AsteroidBounce" || gameObject.name == "AsteroidBounce(Clone)" || gameObject.name == "AsteroidFollow" || gameObject.name == "AsteroidFollow(Clone)")
+            {
+                BigExplosion();
+            }
+            else if (gameObject.name == "MediumAsteroidTeleport" || gameObject.name == "MediumAsteroidTeleport(Clone)" || gameObject.name == "MediumAsteroidBounce" || gameObject.name == "MediumAsteroidBounce(Clone)" || gameObject.name == "MediumAsteroidFollow" || gameObject.name == "MediumAsteroidFollow(Clone)")
+            {
+                MidExplosion();
+            }
         }
     }
 }
