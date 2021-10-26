@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Testing.unity
     guid: ae567ea975a64b64298399ff7e5d14a6
+  - enabled: 1
+    path: Assets/Scenes/BabyMode.unity
+    guid: 0244899276ed4474f9f002b56b302f98
   m_configObjects: {}

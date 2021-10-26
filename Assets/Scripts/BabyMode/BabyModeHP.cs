@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerHP : MonoBehaviour
+public class BabyModeHP : MonoBehaviour
 {
-    public Image[] healthPoints;
-    private int health = 11;
+    private int health = 1000000;
 
     public static float nextShield, nextShieldAsteroid;
     public static float shieldCD = 2, shieldCDAsteroid = 2;
 
     // Healing vars
-    private int healCD = 10;
+    private float healCD = 0.05f;
     private float nextHeal;
     private bool damageTaken = false;
 
@@ -27,33 +26,24 @@ public class PlayerHP : MonoBehaviour
     public ParticleSystem dedExplosion;
     public GameObject dedUI;
 
+    // BabyModeUI
+    public Text babyHPText;
+
     // Start is called before the first frame update
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         startColor = spriteRenderer.color;
+        babyHPText.text = "HP: " + health;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (health > 11) { health = 11; }
-        healthBar();
         healing();
         shieldEffect();
-    }
 
-    void healthBar()
-    {
-        for (int i = 0; i < healthPoints.Length; i++)
-        {
-            healthPoints[i].enabled = !DisplayHealthPoints(health, i);
-        }
-    }
-
-    bool DisplayHealthPoints(float _health, int pointNumber)
-    {
-        return (pointNumber >= _health);
+        babyHPText.text = "HP: " + health;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -64,7 +54,7 @@ public class PlayerHP : MonoBehaviour
             damageTaken = true;
             nextShield = Time.time + shieldCD;
         }
-        
+
         if (health <= 0)
         {
             dedExplosion.Play();
@@ -85,8 +75,8 @@ public class PlayerHP : MonoBehaviour
         }
 
         // if takes damage reset healing time
-        if (damageTaken) 
-        { 
+        if (damageTaken)
+        {
             nextHeal = Time.time + healCD;
             damageTaken = false;
         }
@@ -103,7 +93,8 @@ public class PlayerHP : MonoBehaviour
             float percentageComplete = elapsedTimeShield / duration;
 
             spriteRenderer.color = Color.Lerp(startColor, endColor, percentageComplete);
-        } else if (spriteRenderer.color != startColor)
+        }
+        else if (spriteRenderer.color != startColor)
         {
 
             elapsedTimeNormal += Time.deltaTime;

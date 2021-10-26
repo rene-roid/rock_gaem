@@ -59,6 +59,11 @@ public class PlayerMovement : MonoBehaviour
         // Limits control mode
         limitsControl();
 
+        if (PlayerHP.ded)
+        {
+            ySpeed = 0f;
+        }
+
     }
     void limitsControl()
     {
@@ -109,8 +114,9 @@ public class PlayerMovement : MonoBehaviour
         {
             playerFart.Play();
             fartParticle.SetActive(true);       
-        } else
+        } if (!Input.GetKey(KeyCode.W))
         {
+            playerFart.Stop();
             playerFart.Stop();
         }
 

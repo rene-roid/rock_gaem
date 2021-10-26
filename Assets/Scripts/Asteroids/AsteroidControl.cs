@@ -14,6 +14,7 @@ public class AsteroidControl : MonoBehaviour
     public GameObject player; // Getting player pos
     private Vector2 movement;
     private Transform target;
+    private Transform antiBreak;
 
     // Creating xPos & yPos Private Variables
     private float xPos, yPos;
@@ -24,9 +25,11 @@ public class AsteroidControl : MonoBehaviour
     // Bounce Mode or Teleport Mode variables
     public int asteroidMode;
 
+
     // Start is called before the first frame update
     void Start()
     {
+
         if (randomSpeed)
         {
             xSpeed = Random.Range(-xSpeed, xSpeed);
@@ -41,6 +44,7 @@ public class AsteroidControl : MonoBehaviour
         if (player)
         {
             target = player.transform;
+            antiBreak = player.transform;
         }
 
 
@@ -139,10 +143,20 @@ public class AsteroidControl : MonoBehaviour
 
     void asteroidFollow()
     {
-        // Getting distance between asteroid and player
-        Vector2 direction = target.position - transform.position;
-        direction.Normalize();
-        movement = direction;
+        if (player)
+        {
+            // Getting distance between asteroid and player
+            Vector2 direction = target.position - transform.position;
+            direction.Normalize();
+            movement = direction;
+        } else
+        {
+            // Getting distance between asteroid and player
+            Vector2 direction = antiBreak.position;
+            direction.Normalize();
+            movement = direction;
+        }
+
         // Moving asteroid
         transform.position = (Vector2)transform.position + (movement * speed * Time.deltaTime);
     }
@@ -169,17 +183,17 @@ public class AsteroidControl : MonoBehaviour
             Destroy(explosionEffectCopy, 2);
             if (gameObject.name == "AsteroidTeleport" || gameObject.name == "AsteroidTeleport(Clone)" || gameObject.name == "AsteroidBounce" || gameObject.name == "AsteroidBounce(Clone)" || gameObject.name == "AsteroidFollow" || gameObject.name == "AsteroidFollow(Clone)")
             {
-
+                Score.score += 69 * 3;
                 BigExplosion();
             }
             else if (gameObject.name == "MediumAsteroidTeleport" || gameObject.name == "MediumAsteroidTeleport(Clone)" || gameObject.name == "MediumAsteroidBounce" || gameObject.name == "MediumAsteroidBounce(Clone)" || gameObject.name == "MediumAsteroidFollow" || gameObject.name == "MediumAsteroidFollow(Clone)")
             {
-
+                Score.score += 69 * 2;
                 MidExplosion();
             }
             else if (gameObject.name == "SmolAsteroidTeleport" || gameObject.name == "SmolAsteroidTeleport(Clone)" || gameObject.name == "SmolAsteroidBounce" || gameObject.name == "SmolAsteroidBounce(Clone)" || gameObject.name == "SmolAsteroidFollow" || gameObject.name == "SmolAsteroidFollow(Clone)")
             {
-
+                Score.score += 69;
             }
 
             PlayerHP.nextShieldAsteroid = Time.time + PlayerHP.shieldCDAsteroid;

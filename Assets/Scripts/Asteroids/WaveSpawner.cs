@@ -52,7 +52,7 @@ public class WaveSpawner : MonoBehaviour
 
         if (state == spawnState.WAITING)
         {
-            if (!enemyIsAlive())
+            if (!enemyIsAlive() && !PlayerHP.ded)
             {
                 waveCompleted();
             } else
@@ -131,7 +131,6 @@ public class WaveSpawner : MonoBehaviour
             SpawnEnemy(_wave.enemy[Random.Range(0, _wave.enemy.Length)]);
             yield return new WaitForSeconds(1f / _wave.spawnEnemyRate);
         }
-
 
         state = spawnState.WAITING;
 

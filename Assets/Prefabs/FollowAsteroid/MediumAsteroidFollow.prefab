@@ -102,7 +102,7 @@ MonoBehaviour:
   ySpeed: 5
   speed: 5
   randomSpeed: 1
-  player: {fileID: 0}
+  player: {fileID: 2332168054115508595, guid: 4f78c06c27c4d504cbc143e5ba962695, type: 3}
   xMapLimit: 11
   yMapLimit: 6
   asteroidMode: 3

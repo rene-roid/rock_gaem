@@ -9,6 +9,7 @@ public class AudioController : MonoBehaviour
     private AudioSource sound, lowpass;
     string sceneName;
     public static AudioController current;
+    public AudioClip[] myPlaylist;
 
     // Start is called before the first frame update
     void Awake()
@@ -43,5 +44,16 @@ public class AudioController : MonoBehaviour
             sound.UnPause();
         }
 
+        if (!sound.isPlaying)
+        {
+            randomPlayer();
+        }
+
+    }
+
+    void randomPlayer()
+    {
+        sound.clip = myPlaylist[Random.Range(0, myPlaylist.Length)] as AudioClip;
+        sound.Play();
     }
 }
