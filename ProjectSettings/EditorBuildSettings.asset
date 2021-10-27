@@ -17,4 +17,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/BabyMode.unity
     guid: 0244899276ed4474f9f002b56b302f98
+  - enabled: 1
+    path: Assets/Scenes/BossFight.unity
+    guid: b4a6c30d5e1cd0b4e8d7d50d4fe8b849
+  - enabled: 1
+    path: Assets/Scenes/Tutorial.unity
+    guid: 65cedb9c6a7135849a60e6331c6007b5
   m_configObjects: {}

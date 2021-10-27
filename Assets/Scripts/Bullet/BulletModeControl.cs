@@ -10,8 +10,11 @@ public class BulletModeControl : MonoBehaviour
     private int a = 0;
     public Text uiText;
 
+    public static int powerUpBulletMode = 0;
+
     private void Awake()
     {
+        powerUpBulletMode = 0;
         uiText.text = shots[0].name;
     }
 
@@ -52,7 +55,7 @@ public class BulletModeControl : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R)) {
             shots[a].SetActive(false);
             a++;
-            if (a > shots.Length -1)
+            if (a > powerUpBulletMode)
             {
                 a = 0;
             }

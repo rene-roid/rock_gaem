@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class WaveSpawner : MonoBehaviour
 {
@@ -31,9 +32,15 @@ public class WaveSpawner : MonoBehaviour
     public Text waveCompletedUI;
     public GameObject waveCompletedGM;
 
+    // Tutorial vars
+    Scene scene;
+    public Text text;
+
     // Start is called before the first frame update
     void Start()
     {
+        Scene scene = SceneManager.GetActiveScene();
+
         waveCountDown = timeBetweenWaves;
 
         if (spawnPoints.Length == 0)
@@ -49,6 +56,33 @@ public class WaveSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        try
+        {
+            switch (nextWaveUI)
+            {
+                case 1:
+                    text.text = "WASD to move \n SpaceBar or Left Click to shoot";
+                    break;
+                case 2:
+                    text.text = "Press Q to dash \n Press E to activate slowmotion";
+                    break;
+                case 3:
+                    text.text = "Pink asteroids follow you";
+                    break;
+                case 4:
+                    text.text = "Press R to change weapon";
+                    break;
+                case 5:
+                    text.text = "Tutorial completed! \n press Esc to pause & go to homepage";
+                    break;
+                default:
+                    text.text = " ";
+                    break;
+            }
+        } catch
+        {
+            
+        }
 
         if (state == spawnState.WAITING)
         {
@@ -85,6 +119,8 @@ public class WaveSpawner : MonoBehaviour
         {
             for (int j = 0; j < waves.Length -1; j++)
             {
+                waves[j].enemyCount++;
+                waves[j].enemyCount++;
                 waves[j].enemyCount++;
             }
             nextWave = 0;

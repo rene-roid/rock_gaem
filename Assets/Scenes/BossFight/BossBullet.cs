@@ -18,6 +18,8 @@ public class BossBullet : MonoBehaviour
     {
         // Moving the bullet upwards
         transform.position += transform.right * bulletSpeed * Time.deltaTime;
+
+        Destroy(gameObject, 3);
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

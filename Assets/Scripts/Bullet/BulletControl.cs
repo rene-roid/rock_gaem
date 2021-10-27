@@ -7,6 +7,7 @@ public class BulletControl : MonoBehaviour
     // Calling variables
     public float bulletSpeed = 10.0f;
     private float xPos, yPos, xMapLimit = 9.1f, yMapLimit = 5.2f;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -19,7 +20,11 @@ public class BulletControl : MonoBehaviour
     {
         // Moving the bullet upwards
         transform.position += transform.up * bulletSpeed * Time.deltaTime;
-        limitTeleport();
+
+        if (PowerUpsControl.bulletPowerUpUnlocked)
+        {
+            limitTeleport();
+        }
     }
 
     private void limitTeleport()

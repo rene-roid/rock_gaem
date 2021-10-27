@@ -5,10 +5,16 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    public void PlayGame()
+    public void PlaySurvival()
     {
         // Opening scene
         SceneManager.LoadScene("Testing");
+    }
+
+    public void PlayTutorial()
+    {
+        // Opening scene
+        SceneManager.LoadScene("Tutorial");
     }
 
     public void QuitGame()

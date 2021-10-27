@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     public float dashDistance, dashCooldown;
     public static float dashCD;
     private float nextDash;
+    public GameObject fartParticle;
     public ParticleSystem playerFart;
     public ParticleSystem dashParticle;
     private AudioSource AudioDash;
@@ -25,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerFart.Play();
+        playerFart.Stop();
         // Dash Cooldown
         dashCD = dashCooldown;
 
@@ -107,16 +108,14 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-    public GameObject fartParticle;
     void CreateParticles()
     {
-        if (Input.GetKey(KeyCode.W))
+        if (Input.GetKeyDown(KeyCode.W))
         {
             playerFart.Play();
-            fartParticle.SetActive(true);       
-        } if (!Input.GetKey(KeyCode.W))
+        }
+        else if(Input.GetKeyUp(KeyCode.W))
         {
-            playerFart.Stop();
             playerFart.Stop();
         }
 
