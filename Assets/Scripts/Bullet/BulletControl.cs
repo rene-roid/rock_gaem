@@ -8,7 +8,6 @@ public class BulletControl : MonoBehaviour
     public float bulletSpeed = 10.0f;
     private float xPos, yPos, xMapLimit = 9.1f, yMapLimit = 5.2f;
     
-
     // Start is called before the first frame update
     void Start()
     {

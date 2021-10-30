@@ -11,6 +11,12 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene("Testing");
     }
 
+    public void Gamer()
+    {
+        // Opening scene
+        SceneManager.LoadScene("Gamer");
+    }
+
     public void PlayTutorial()
     {
         // Opening scene

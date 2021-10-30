@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class BossAttacks : MonoBehaviour
 {
-    public enum stateBoss { ATTACKING, WAITING };
-    public stateBoss state = stateBoss.WAITING; 
+    public enum stateBoss { ATTACKING, WAITING, NORMAL, ENRAGED };
+    public stateBoss state = stateBoss.WAITING;
+    public stateBoss status = stateBoss.NORMAL;
 
     public GameObject bossBullet;
     public GameObject[] gun1, gun2, gun3;
@@ -13,6 +14,7 @@ public class BossAttacks : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        transform.position = new Vector2(0.0f, 4.96f);
         xMaxBoss = 6.8f;
         yMapBoss = 3.12f;
         xBossSpeed = 10f;
@@ -26,31 +28,35 @@ public class BossAttacks : MonoBehaviour
     {
         if (state == stateBoss.WAITING)
         {
-            int attack = Random.Range(0, 5);
-            
-            switch (attack)
+            if (status == stateBoss.NORMAL)
             {
-                case 0:
-                    state = stateBoss.ATTACKING;
-                    bulletRain();
-                    break;
-                case 1:
-                    state = stateBoss.ATTACKING;
-                    spiralBomb();
-                    break;
-                case 2:
-                    state = stateBoss.ATTACKING;
-                    spiralModeSwitch();
-                    break;
-                case 3:
-                    state = stateBoss.ATTACKING;
-                    spiralMode();
-                    break;
-                case 4:
-                    state = stateBoss.ATTACKING;
-                    bouncyBoss();
-                    break;
+                int attack = Random.Range(0, 5);
+
+                switch (attack)
+                {
+                    case 0:
+                        state = stateBoss.ATTACKING;
+                        bulletRain();
+                        break;
+                    case 1:
+                        state = stateBoss.ATTACKING;
+                        spiralBomb();
+                        break;
+                    case 2:
+                        state = stateBoss.ATTACKING;
+                        spiralModeSwitch();
+                        break;
+                    case 3:
+                        state = stateBoss.ATTACKING;
+                        spiralMode();
+                        break;
+                    case 4:
+                        state = stateBoss.ATTACKING;
+                        bouncyBoss();
+                        break;
+                }
             }
+
         }
 
         //bulletRain();
@@ -232,4 +238,26 @@ public class BossAttacks : MonoBehaviour
 
         yield return state = stateBoss.WAITING;
     }
+
+    private int BossHP = 300;
+    void BossHpControl ()
+    {
+        if (status == stateBoss.ENRAGED)
+        {
+
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag == "Bullet")
+        {
+            BossHP--;
+            if (BossHP <= 0)
+            {
+                Destroy(gameObject);
+            }
+        }
+    }
+
 }

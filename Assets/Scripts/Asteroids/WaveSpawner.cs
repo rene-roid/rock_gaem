@@ -18,7 +18,9 @@ public class WaveSpawner : MonoBehaviour
     }
 
     public Wave[] waves;
-    private int nextWave = 0, nextWaveUI = 1;
+    private int nextWave = 0;
+    public static int nextWaveUI = 1;
+    private int nextWaveUILocal = 1;
 
     public Transform[] spawnPoints;
 
@@ -39,6 +41,8 @@ public class WaveSpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        nextWaveUI = nextWaveUILocal;
+
         Scene scene = SceneManager.GetActiveScene();
 
         waveCountDown = timeBetweenWaves;
@@ -49,16 +53,17 @@ public class WaveSpawner : MonoBehaviour
         }
 
         waveCompletedGM.SetActive(true);
-        waveCompletedUI.text = "Wave " + nextWaveUI;
+        waveCompletedUI.text = "Wave " + nextWaveUILocal;
 
     }
 
     // Update is called once per frame
     void Update()
     {
+        nextWaveUI = nextWaveUILocal;
         try
         {
-            switch (nextWaveUI)
+            switch (nextWaveUILocal)
             {
                 case 1:
                     text.text = "WASD to move \n SpaceBar or Left Click to shoot";
@@ -67,7 +72,7 @@ public class WaveSpawner : MonoBehaviour
                     text.text = "Press Q to dash \n Press E to activate slowmotion";
                     break;
                 case 3:
-                    text.text = "Pink asteroids follow you";
+                    text.text = "Each round you unlock a new weapon (R)";
                     break;
                 case 4:
                     text.text = "Press R to change weapon";
@@ -137,9 +142,9 @@ public class WaveSpawner : MonoBehaviour
 
     void waveCompletedVoidUI()
     {
-        nextWaveUI++;
+        nextWaveUILocal++;
         waveCompletedGM.SetActive(true);
-        waveCompletedUI.text = "Wave " + nextWaveUI;
+        waveCompletedUI.text = "Wave " + nextWaveUILocal;
     }
 
     bool enemyIsAlive()

@@ -55,12 +55,16 @@ public class BulletModeControl : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R)) {
             shots[a].SetActive(false);
             a++;
-            if (a > powerUpBulletMode)
+            if (a >= powerUpBulletMode)
             {
                 a = 0;
+                shots[a].SetActive(true);
+            } else
+            {
+                shots[a - 1].SetActive(false);
+                shots[a].SetActive(true);
             }
             uiText.text = shots[a].name;
-            shots[a].SetActive(true);
         }
     }
 
